@@ -10,10 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.nelioalves.cursomc.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.cursomc.domain.Cidade;
+import com.nelioalves.cursomc.cursomc.domain.Cliente;
+import com.nelioalves.cursomc.cursomc.domain.Endereco;
 import com.nelioalves.cursomc.cursomc.domain.Estado;
 import com.nelioalves.cursomc.cursomc.domain.Produto;
+import com.nelioalves.cursomc.cursomc.domain.enums.TipoCliente;
 import com.nelioalves.cursomc.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.cursomc.repositories.CidadeRepository;
+import com.nelioalves.cursomc.cursomc.repositories.ClienteRepository;
+import com.nelioalves.cursomc.cursomc.repositories.EnderecoRepository;
 import com.nelioalves.cursomc.cursomc.repositories.EstadoRepository;
 import com.nelioalves.cursomc.cursomc.repositories.ProdutoRepository;
 
@@ -31,6 +36,10 @@ public class CursomcApplication implements CommandLineRunner{
 	private EstadoRepository estadoRepository; 
 	@Autowired
 	private CidadeRepository cidadeRepository; 
+	@Autowired
+	private ClienteRepository clienteRepository; 
+	@Autowired
+	private EnderecoRepository enderecoRepository; 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -69,6 +78,38 @@ public class CursomcApplication implements CommandLineRunner{
 		
 		estadoRepository.saveAll(Arrays.asList(est1,est2)); 
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3)); 
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "2324510971", TipoCliente.PESSOAFISICA); 
+		cli1.getTelefones().addAll(Arrays.asList("92995437","07182162782")); 
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto203", "Jardim", "41620876", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "2241620876", cli1, c2); 
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1)); 
+		enderecoRepository.saveAll(Arrays.asList(e1,e2)); 
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
