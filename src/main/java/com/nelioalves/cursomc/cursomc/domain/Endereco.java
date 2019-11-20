@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Endereco implements Serializable{
 	
@@ -25,7 +27,10 @@ public class Endereco implements Serializable{
 	/* @ManyToOne especifica um valor unico para uma classe de entidade que possui
 	 * multiplicidade de muitos para um. 
 	 * Muitos enderecos está para um cliente.  Ver relação na entidade Cliente. 
+	 * 
+	 * @JsonBackReference - indica que o endereço nao pode serializar o cliente. 
 	 * */
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente; 
